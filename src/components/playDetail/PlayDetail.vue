@@ -18,7 +18,7 @@
         </mu-appbar>
         <div class="videoPlay">
           <div class="video">
-            <tv-loading v-show="!videoInfo.playurl.durl"></tv-loading>
+            <tv-loading v-if="!videoInfo"></tv-loading>
             <div class="playVideo" ref="playVideo" v-for="(item, index) in videoInfo.playurl.durl" :key="index">
               <video id="video" :src="item.url" ref="video" controlslist="nodownload" preload='auto' webkit-playsinline='true' playsinline='true' x-webkit-airplay='true' x5-video-player-type='h5' x5-video-player-fullscreen='true' x5-video-ignore-metadata='true' width='100%' height='100%'>不支持video</video>
               <div class="bgImg" v-show="showHideImg">

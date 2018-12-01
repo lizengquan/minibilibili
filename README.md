@@ -1,12 +1,12 @@
-# minibilibili
+# 高仿哔哩哔哩APP
 
 > A Vue.js project
 
-## 项目描述：
+## 项目描述
 
 实现像哔哩哔哩APP中的视频的分类及浏览
 
-## 技术描述：
+## 技术描述
 
 1、项目使用vue全家桶(vue+vue-router+vuex+axios)，并基于Vue 2.0的Muse-UI库开发
 
@@ -70,6 +70,6 @@ npm i sass-loader node-sass -D
 npm i superagent -D
 ```
 
-## 效果图
+## 项目效果图
 
 ![minibilibili.gif](./static/img/minibilibili.gif)

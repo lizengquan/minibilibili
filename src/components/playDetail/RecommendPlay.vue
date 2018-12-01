@@ -11,11 +11,11 @@
           <div class="name" slot="left">
             <div class="userName" v-if="listData.item.owner">{{listData.item.owner.name}}</div>
             <div class="userName" v-if="listData.item.author">{{listData.item.author}}</div>
-            <span class="fans" v-show="listData.item.attributes">{{listData.item.attribute | transformNumPoint}}粉丝</span>
+            <span class="fans" v-show="listData.item.attribute">{{listData.item.attribute | transformNumPoint}}粉丝</span>
           </div>
-          <mu-button color="#fb7299" text-color="#fff" slot="right">
-            <mu-icon :size="18" value="add"></mu-icon>
-            关注
+          <mu-button color="#fb7299" text-color="#fff" slot="right" @click="followFun()">
+            <mu-icon :size="18" value="add" v-show="!follow"></mu-icon>
+            {{follow ? '已关注' : '关注'}}
           </mu-button>
         </mu-appbar>
       </div>
@@ -82,7 +82,7 @@
         <div class="recItem" v-for="(item, index) in listData.list" :key="index" v-if="listData.item.aid !== item.aid" @click="toPlay(item, listData)">
           <mu-ripple class="mu-ripple-wrapper"></mu-ripple>
           <div class="recImg">
-            <img :src="item.pic" width="100%" height="100%">
+            <img v-lazy="item.pic" width="100%" height="100%">
           </div>
           <div class="recContent">
             <div class="title">{{item.title}}</div>
@@ -130,7 +130,8 @@
         downTipTxt: '哔哩哔哩：差评成功',
         coinTipTxt: '哔哩哔哩：投币成功',
         favoriteTipTxt: '哔哩哔哩：收藏成功',
-        show: false
+        show: false,
+        follow: false
       }
     },
     computed: mapGetters(['getFavoriteData']),
@@ -225,6 +226,9 @@
         }
         this.clickFavorite = true
         this.setTimeHide()
+      },
+      followFun() {
+        this.follow = !this.follow
       }
     },
     filters: {
@@ -241,8 +245,11 @@
 
 <style lang="sass" rel="stylesheet/scss" scoped>
   .recommend-play
-    width: 100%
-    height: 100%
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 272px
     overflow: hidden
     .owner
       margin: 0 12px

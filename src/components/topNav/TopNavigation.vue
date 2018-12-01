@@ -2,7 +2,8 @@
   <div class="top-navigation">
     <mu-appbar style="width: 100%;" color="#FB7299" text-color="#fff" z-depth="0">
       <mu-avatar :size="24" slot="left" @click="showSetDrawer(true)">
-        <img src="../../assets/img/bili_default_avatar.png">
+        <img src="../../assets/img/bili_default_avatar.png" v-show="!loginIn">
+        <img src="../../assets/img/userImg.jpeg" v-show="loginIn">
       </mu-avatar>
       <div class="title" v-show="headerTitle !== '首页'">{{headerTitle}}</div>
       <div class="search" v-show="headerTitle === '首页'" @click="showSearch()"></div>
@@ -36,7 +37,7 @@
   export default {
     name: 'TopNavigation',
     computed: {
-      ...mapState(['headerTitle', 'isSearch'])
+      ...mapState(['headerTitle', 'isSearch', 'loginIn'])
     },
     methods: {
       ...mapMutations({
