@@ -80,14 +80,13 @@ npm i superagent -D
 ![频道01](./static/img/频道01.png)
 ![频道02](./static/img/频道02.png)
 ![频道03](./static/img/频道03.png)
+![频道04](./static/img/频道04.png)
 ![动态01](./static/img/动态01.png)
 ![购物](./static/img/购物.png)
 ![搜索](./static/img/搜索.png)
 ![视频01](./static/img/视频01.png)
 ![视频02](./static/img/视频02.png)
-![视频03](./static/img/视频03.png)
-![视频分享04](./static/img/视频分享04.png)
-![视频04](./static/img/视频04.png)
+![分享04](./static/img/视频分享04.png)
 ![视频05](./static/img/视频05.png)
 ![视频06](./static/img/视频06.png)
 ![视频07](./static/img/视频07.png)
@@ -105,8 +104,6 @@ npm i superagent -D
 ![我的收藏02](./static/img/我的收藏02.png)
 ![我的收藏03](./static/img/我的收藏03.png)
 ![我的收藏04](./static/img/我的收藏04.png)
-
-
 
 ### 已注册
 
