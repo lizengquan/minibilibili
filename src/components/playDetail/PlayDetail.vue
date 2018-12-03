@@ -340,7 +340,7 @@
             // 保持画面的原有比例
             // object-fit: cover
             // object-position: center center
-            background: rgba(0, 0, 0, 0.5)
+            background: rgba(0, 0, 0, 0)
           .bgImg
             position: absolute
             top: 0

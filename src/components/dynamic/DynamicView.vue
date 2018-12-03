@@ -112,7 +112,7 @@
         }
       },
       sidle(val) {
-        console.log(val)
+        // console.log(val)
         this.mySwiper.slideTo(val, 1000, false)
       }
     },

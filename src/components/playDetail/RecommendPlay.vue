@@ -209,7 +209,7 @@
         this.clickCoin = true
         this.setTimeHide()
       },
-      changeFavorite(item, listData) {
+      changeFavorite(item, listData) { // 改变收藏
         let aid = listData.item.aid
         if (this.isClickFavorite) {
           this.isClickFavorite = false

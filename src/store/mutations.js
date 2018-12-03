@@ -67,7 +67,7 @@ export default {
         arr.forEach((item, index) => { // 不符合条件的没有被删除掉
           if (item.aid === id) { // // 删除指定的aid的对象
             arr.splice(index, 1) // splice() 方法向/从数组中添加/删除项目，然后返回被删除的项目
-            console.log(arr)
+            // console.log(arr)
           }
         })
       })
@@ -75,7 +75,7 @@ export default {
       arr.forEach((item, index) => { // 不符合条件的没有被删除掉
         if (item.aid === aid) { // // 删除指定的aid的对象
           arr.splice(index, 1) // splice() 方法向/从数组中添加/删除项目，然后返回被删除的项目
-          console.log(arr)
+          // console.log(arr)
         }
       })
     }
@@ -96,20 +96,20 @@ export default {
   },
   [types.CHEAR_HISTORY](state, aid) {
     let arr = state.historyData
-    if (aid instanceof Array) {
+    if (aid instanceof Array) { // 删除多个
       aid.forEach(id => {
         arr.forEach((item, index) => { // 不符合条件的没有被删除掉
           if (item.aid === id) { // // 删除指定的aid的对象
             arr.splice(index, 1) // splice() 方法向/从数组中添加/删除项目，然后返回被删除的项目
-            console.log(arr)
+            // console.log(arr)
           }
         })
       })
-    } else {
+    } else { // 删除单个
       arr.forEach((item, index) => { // 不符合条件的没有被删除掉
         if (item.aid === aid) { // // 删除指定的aid的对象
           arr.splice(index, 1) // splice() 方法向/从数组中添加/删除项目，然后返回被删除的项目
-          console.log(arr)
+          // console.log(arr)
         }
       })
     }

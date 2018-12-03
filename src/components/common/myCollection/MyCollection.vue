@@ -39,7 +39,7 @@
       <div class="selectAll">
         <mu-checkbox label="全选" color="#fb7299" :input-value="checkAll" @change="handleCheckAll"></mu-checkbox>
       </div>
-      <div class="cancel" :class="{active: checkbox.length}" :disabled="checkbox.length" @click="cancel()">取消收藏</div>
+      <div class="cancel" :class="{active: checkbox.length}" :disabled="checkbox.length" @click="isCancel()">取消收藏</div>
     </div>
   </div>
 </template>
@@ -62,8 +62,8 @@
       return {
         title: '我的收藏',
         iconVal: 'menu',
-        checkbox: [],
-        checkAll: false,
+        checkbox: [], // 复选框选中添加aid号，否则删除对应的
+        checkAll: false, // 全选默认是false
         search: true, // 显示搜索
         edit: '编辑',
         isCheckBox: false,
@@ -74,10 +74,10 @@
       ...mapState(['userFavoriteData']),
       ...mapGetters(['getFavoriteData'])
     },
-    watch: {
+    watch: { // 观察者
       checkbox(newArr, oldArr) {
         if (newArr.length < oldArr.length) {
-         this.checkAll = false
+         this.checkAll = false // 不全选 新arr小于旧的arr
         }
       }
     },
@@ -90,21 +90,21 @@
       backPre() {
         this.showDrawer(true)
       },
-      toPlay(item, list) {
+      toPlay(item, list) { // 进入视频页面
         // this.$router.push({path: '/playDetail', query: {index}})
         this.$router.push({name: 'playDetail', params: {item, list}})
         let aid = item.aid
         let axios = this.axios
         this.getVideoInfo({axios, aid})
       },
-      handleCheckAll(val) {
-        let checkAll = []
+      handleCheckAll(val) { // 手动删除收藏记录
+        let checkArr = []
         this.getFavoriteData.forEach((item, index) => {
-          checkAll.push(item.aid)
+          checkArr.push(item.aid)
         })
         if (val) {
-          this.checkbox = checkAll
-          this.checkAll = true
+          this.checkbox = checkArr
+          this.checkAll = true // 全选
           return
         }
         this.checkbox = []
@@ -133,6 +133,23 @@
           this.edit = '编辑'
           this.marginLeft = 0
         }
+      },
+      isCancel() { // 清除本地存储
+        this.$confirm('清除已选中的收藏记录吗?', {
+          width: 350, // 对话框的宽度
+          maxWidth: '80%', // 对话框最大宽度
+          className: '', // 对话框的样式
+          okLabel: '确定', // 对话框确定按钮文字
+          cancelLabel: '取消', // 对话框取消按钮文字
+          transition: 'scale' // 对话框显示的动画 'slide-left', 'slide-right', 'fade', 'scale'
+        }).then((res) => { // 返回 Promise 对象
+            // console.log(res.result) true false
+            if (res.result) {
+              this.cancel()
+              return false
+            }
+            return false
+        })
       }
     },
     components: {
@@ -173,8 +190,11 @@
             line-height: 38px
             border-bottom: 2px solid #fff
     .collectionList
-      width: 100%
-      height: 100%
+      position: absolute
+      top: 96px
+      left: 0
+      right: 0
+      bottom: 0
       overflow: hidden
       .videoItem
         position: relative

@@ -34,10 +34,13 @@
           loop: true, // 循环模式选项
           // 如果需要分页器
           pagination: {
-            el: '.swiper-pagination'
+            el: '.swiper-pagination',
+            clickable: true
           },
-          autoplay: true, // 启动自动切换
-          disableOnInteraction: false // 用户操作swiper之后，是否禁止autoplay
+          autoplay: { // 启动自动切换
+            disableOnInteraction: false, // 用户操作swiper之后，是否禁止autoplay
+            delay: 1500
+          }
         })
       })
     },

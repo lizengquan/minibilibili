@@ -72,4 +72,50 @@ npm i superagent -D
 
 ## 项目效果图
 
-![minibilibili.gif](./static/img/minibilibili.gif)
+### 未登录
+
+![首页01](./static/img/首页01.png)
+![首页02](./static/img/首页02.png)
+![首页上拉刷新](./static/img/首页上拉刷新03.png)
+![频道01](./static/img/频道01.png)
+![频道02](./static/img/频道02.png)
+![频道03](./static/img/频道03.png)
+![动态01](./static/img/动态01.png)
+![购物](./static/img/购物.png)
+![搜索](./static/img/搜索.png)
+![视频01](./static/img/视频01.png)
+![视频02](./static/img/视频02.png)
+![视频03](./static/img/视频03.png)
+![视频分享04](./static/img/视频分享04.png)
+![视频04](./static/img/视频04.png)
+![视频05](./static/img/视频05.png)
+![视频06](./static/img/视频06.png)
+![视频07](./static/img/视频07.png)
+![视频08](./static/img/视频08.png)
+![视频09](./static/img/视频09.png)
+![侧栏01](./static/img/侧栏01.png)
+![侧栏02](./static/img/侧栏02.png)
+![侧栏02](./static/img/侧栏02.png)
+![历史记录01](./static/img/历史记录01.png)
+![历史记录02](./static/img/历史记录02.png)
+![历史记录03](./static/img/历史记录03.png)
+![历史记录04](./static/img/历史记录04.png)
+![历史记录05](./static/img/历史记录05.png)
+![我的收藏01](./static/img/我的收藏01.png)
+![我的收藏02](./static/img/我的收藏02.png)
+![我的收藏03](./static/img/我的收藏03.png)
+![我的收藏04](./static/img/我的收藏04.png)
+
+
+
+### 已注册
+
+![登录页面](./static/img/登录01.png)
+![登录页面](./static/img/登录02.png)
+![注册01](./static/img/注册01.png)
+![注册02](./static/img/注册02.png)
+![注册03](./static/img/注册03.png)
+![登录后01](./static/img/登录后01.png)
+![登录后02](./static/img/登录后02.png)
+![动态登录后02](./static/img/动态登录后02.png)
+

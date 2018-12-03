@@ -6,14 +6,17 @@
     <loading v-show="!bannerData.length"></loading>
     <div class="scroll" ref="scroll">
       <ul>
-        <li class="item" v-for="(item, index) in bannerData" :key="index">
-          <div class="img">
-            <img :src="item.pic" width="100%">
-          </div>
-          <div class="title">{{item.name}}</div>
-        </li>
+        <div v-for="i in 4" :key="i">
+          <li class="item" ref="item" v-for="(item, index) in bannerData" :key="index">
+            <div class="img">
+              <img :src="item.pic" width="100%">
+            </div>
+            <div class="title">{{item.name}}</div>
+          </li>
+        </div>
       </ul>
     </div>
+    <div class="bottomTip" :style="{bottom: `${tipBottom}px`}" v-show="isTip">╮(╯3╰)╭再怎么找也没有啦</div>
   </div>
 </template>
 
@@ -29,25 +32,42 @@
         num: 10,
         refreshing: false,
         loading: false,
-        bannerData: []
+        bannerData: [],
+        isTip: false,
+        tipBottom: 46
       }
     },
     created() {
       this.$nextTick(() => {
         this.axios.get('/api/banner').then(res => {
-          console.log()
           let arr = JSON.parse(res.request.responseText)
           arr = JSON.parse(arr.data)
-          console.log(arr.data)
+          // console.log(arr.data)
           this.bannerData = arr.data
         })
       })
     },
     mounted() {
       this.$nextTick(() => {
-        this.scroll = new BScroll(this.$refs.scroll, {
-          click: true
-        })
+        if (this.bannerData) {
+          this.scroll = new BScroll(this.$refs.scroll, {
+            click: true,
+            probeType: 3
+          })
+          this.scroll.on('scroll', ({y}) => {
+            // console.log(parseInt(y))
+            let offsetY = parseInt(y)
+            let height = this.$refs.item[0].offsetHeight * this.bannerData.length * 4 - 396
+            if (-offsetY > height) {
+              this.isTip = true
+              this.tipBottom = -offsetY - height
+            } else {
+              this.isTip = false
+              this.tipBottom = 46
+            }
+            // console.log(height)
+          })
+        }
       })
     },
     components: {
@@ -63,11 +83,14 @@
     top: 0
     left: 0
     right: 0
-    bottom: 56px
+    bottom: 0px
     background: #fafafa
     .scroll
-      width: 100%
-      height: 100%
+      position: absolute
+      top: 56px
+      left: 0
+      right: 0
+      bottom: 46px
       overflow: hidden
       .item
         margin: 12px
@@ -84,4 +107,10 @@
           white-space: nowrap
           text-overflow: ellipsis
           overflow: hidden
+    .bottomTip
+      position: fixed
+      left: 0
+      right: 0
+      text-align: center
+      color: #999
 </style>

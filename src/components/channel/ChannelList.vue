@@ -1,7 +1,7 @@
 <template>
   <transition name="fade">
     <div class="channelList">
-      <div class="header">
+      <div class="header" :style="{transform: `translateY(${scrollHeight}px)`}">
         <header-side :title="getChannelList.title ? getChannelList.title : ''" :depth="0" @emit-close="backPre()"></header-side>
         <div class="topList" ref="topListScroll">
           <ul ref="topList">
@@ -12,10 +12,10 @@
         </div>
       </div>
       <loading v-show="!partData.length"></loading>
-      <div class="videoList" ref="videoListScroll">
+      <div class="videoList" ref="videoListScroll" :style="{top: `${scrollTop}px`}">
         <ul>
           <div class="dynamic">综合动态</div>
-          <li class="videoItem" v-for="(list, key) in partData" :key="key" @click="toPlay(list, AnimationZoneData)">
+          <li class="videoItem" ref="videoItem" v-for="(list, key) in partData" :key="key" @click="toPlay(list, AnimationZoneData)">
             <mu-ripple class="mu-ripple-wrapper"></mu-ripple>
             <div class="videoImg">
               <img v-lazy="list.pic" width="100%" height="100%">
@@ -36,7 +36,7 @@
         <mu-circular-progress class="progress" color="#FB7299" :stroke-width="2" :size="14"></mu-circular-progress>
         加载中...
       </div>
-      <div class="loaded" v-show="!Loaded">╮(╯3╰)╭再怎么找也没有啦</div>
+      <div class="loaded" :style="{bottom: `${tipBottom}px`}" v-show="isTip">╮(╯3╰)╭再怎么找也没有啦</div>
     </div>
   </transition>
 </template>
@@ -53,7 +53,11 @@
         showNum: 6,
         refreshing: false,
         loading: false,
-        tid: 0
+        tid: 0,
+        tipBottom: -30,
+        isTip: false,
+        scrollHeight: 0,
+        scrollTop: 94
       }
     },
     created() {
@@ -61,6 +65,7 @@
         this.videoListScroll = new BScroll(this.$refs.videoListScroll, {
           click: true,
           scrollY: true,
+          probeType: 3,
           pullUpLoad: {
             threshold: -30 // 当上拉距离超过30px时触发 pullingUp 事件
           },
@@ -82,6 +87,31 @@
           this.refresh(tid)
           this.videoListScroll.finishPullDown() // 事情做完，需要调用此方法告诉 better-scroll 数据已加载，否则下拉事件只会执行一次
         })
+        if (this.partData) {
+          this.videoListScroll.on('scroll', ({y}) => {
+            // console.log(parseInt(y))
+            let offsetY = parseInt(y)
+            let height = this.$refs.videoItem[0].offsetHeight * this.AnimationZoneData.length - 500
+            if (-offsetY > height) {
+              this.isTip = true
+              this.tipBottom = -offsetY - height
+            } else {
+              this.isTip = false
+              this.tipBottom = -30
+            }
+            if (y > -56 && y < 0) {
+              this.scrollHeight = offsetY
+              this.scrollTop = 94 + offsetY
+            } else if (y <= -56) {
+              this.scrollHeight = -56
+              this.scrollTop = 38
+            } else {
+              this.scrollHeight = 0
+              this.scrollTop = 94
+            }
+            // console.log(height)
+          })
+        }
       })
     },
     mounted() { // 渲染之后
@@ -222,13 +252,17 @@
             &.active
               border-bottom: 2px solid #fff
     .videoList
-      box-sizing: border-box
-      padding-top: 20px
-      height: 100%
+      position: absolute
+      // top: 94px
+      left: 0
+      right: 0
+      bottom: 0px
       overflow: hidden
       color: #333
       .dynamic
-        margin: 14px 0 0 12px
+        margin: 0px 0 0 12px
+        height: 35px
+        line-height: 35px
       .videoItem
         position: relative
         display: flex
@@ -290,15 +324,16 @@
             height: 14px
             background: url(../../assets/img/ic_more.png) no-repeat
             background-size: 14px auto
-    .load
+    .load, .loaded
       position: fixed
       left: 0
       bottom: 0
       width: 100%
       text-align: center
     .loaded
-      height: 45px
-      line-height: 45px
+      position: fixed
+      left: 0
+      right: 0
       text-align: center
       color: #999
 </style>

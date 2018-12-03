@@ -158,7 +158,7 @@
             setData = item.title
           }
         })
-        console.log(setData)
+        // console.log(setData)
         this.getSetDrawer({val: true, setData})
       },
       userMsg() {

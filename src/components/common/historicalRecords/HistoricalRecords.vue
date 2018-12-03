@@ -41,7 +41,7 @@
         <div class="selectAll">
           <mu-checkbox label="全选" color="#fb7299" :input-value="checkAll" @change="handleCheckAll"></mu-checkbox>
         </div>
-        <div class="cancel" :class="{active: checkbox.length}" :disabled="checkbox.length" @click="cancel()">删除</div>
+        <div class="cancel" :class="{active: checkbox.length}" :disabled="checkbox.length" @click="isCancel()">删除</div>
       </div>
     </div>
 </template>
@@ -142,6 +142,23 @@
           this.edit = '编辑'
           this.marginLeft = 0
         }
+      },
+      isCancel() { // 清除本地存储
+        this.$confirm('清除已选中的历史记录吗?', {
+          width: 350, // 对话框的宽度
+          maxWidth: '80%', // 对话框最大宽度
+          className: '', // 对话框的样式
+          okLabel: '确定', // 对话框确定按钮文字
+          cancelLabel: '取消', // 对话框取消按钮文字
+          transition: 'scale' // 对话框显示的动画 'slide-left', 'slide-right', 'fade', 'scale'
+        }).then((res) => { // 返回 Promise 对象
+            // console.log(res.result) true false
+            if (res.result) {
+              this.cancel()
+              return false
+            }
+            return false
+        })
       }
     },
     filters: {
@@ -211,12 +228,15 @@
           button
             background: #fb7299
       .collectionList
-        width: 100%
-        height: 100%
-        padding: 10px 12px
+        position: absolute
+        top: 0
+        left: 0
+        right: 0
+        bottom: 56px
         overflow: hidden
         .videoItem
           position: relative
+          padding: 0 12px
           .left
             position: absolute
             top: 50%

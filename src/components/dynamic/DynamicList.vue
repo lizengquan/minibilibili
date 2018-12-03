@@ -16,7 +16,7 @@
                   </mu-button>
                 </mu-card-header>
                 <mu-card-title :sub-title="item.dynamic"></mu-card-title>
-                <mu-card-media title="Image Title" sub-title="Image Sub Title">
+                <mu-card-media :sub-title="item.title">
                   <img v-lazy="item.pic" height="190px">
                 </mu-card-media>
                 <mu-card-text>
